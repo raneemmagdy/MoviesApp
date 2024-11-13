@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import Layout from './components/Layout/Layout'
+import Movies from './components/Movies/Movies'
+import TopRatedMovies from './components/TopRatedMovies/TopRatedMovies'
+
+import MovieDetails from './components/MovieDetails/MovieDetails'
+import Reviews from './components/Reviews/Reviews'
+import Credits from './components/Credits/Credits'
+import { Provider } from 'react-redux'
+import { globalStore } from './components/Redux/store'
+import SearchResults from './components/SearchResults/SearchResults'
+
+
+
+export default function App() {
+
+  let routes=createHashRouter([
+    {path:'/',element:<Layout/>,children:[
+      {index:true,element:<Movies/>},
+      {path:'/topRatedMovies',element:<TopRatedMovies/>},
+     
+      {path:'/movieDetails/:id',element:<MovieDetails/>},
+      {path:'/reviews/:id',element:<Reviews/>},
+      {path:'/credits/:id',element:<Credits/>},
+      {path:'/search-results',element:<SearchResults/>},
+
+
+      
+
+    ]}
+  ])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+   
+ <Provider store={globalStore}>
+ <RouterProvider router={routes}/>
+ 
 
-export default App;
+ </Provider>
+    </>
+  )
+}
