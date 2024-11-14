@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Movie({movies}) {
+export default function Movie({movie}) {
   return (
     <>
-     {movies?.map((movie) => 
-         
-         <div className="col-md-3" >
+
+         <div className="col-md-3"  >
            <div className="card bg-dark text-white">
              <img
                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -31,8 +30,7 @@ export default function Movie({movies}) {
            </div>
         
        </div>
-     )}
-    
+   
     
     </>
   )

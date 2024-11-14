@@ -1,26 +1,15 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+import useFetchMovies from '../Hooks/useMovies';
 
 export default function MovieDetails() {
-  let [movie, setMovie] = useState(null); 
+ 
   let { id } = useParams();
-
-  async function getMovieDetails() {
-    try {
-      let { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=3e900c7706fc519f0627de6b8ef6e26f`
-      );
-      setMovie(data); 
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    getMovieDetails();
-  }, []); 
+  let url=  `https://api.themoviedb.org/3/movie/${id}?api_key=3e900c7706fc519f0627de6b8ef6e26f`
+  let data=useFetchMovies(url)
+  console.log(data);
+  let movie=data
 
   if (!movie) return <Loading/>;
 

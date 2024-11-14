@@ -1,28 +1,15 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import img from "../../assets/images/images.png";
+import useFetchMovies from "../Hooks/useMovies";
 
 export default function Credits() {
   let { id } = useParams();
-  let [credits, setCredits] = useState(null);
-
-  async function getCreditsForMovie() {
-    try {
-      let { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=3e900c7706fc519f0627de6b8ef6e26f`
-      );
-      setCredits(data.cast);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    getCreditsForMovie();
-  }, []);
-
+  let url= `https://api.themoviedb.org/3/movie/${id}/credits?api_key=3e900c7706fc519f0627de6b8ef6e26f`
+  let data=useFetchMovies(url)
+  console.log(data.cast);
+  let credits=data.cast
+  
   if (!credits) return <Loading />;
 
   return (

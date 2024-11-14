@@ -1,24 +1,16 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+
 import Slider from "react-slick";
+import useFetchMovies from "../Hooks/useMovies";
+import Loading from "../Loading/Loading";
 
 export default function MainSlider() {
-  let [movies, setMovies] = useState([]);
-
-  async function getAllMovies() {
-    try {
-      let { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=3e900c7706fc519f0627de6b8ef6e26f`
-      );
-      setMovies(data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    getAllMovies();
-  }, []);
+ 
+  let url=`https://api.themoviedb.org/3/movie/popular?api_key=3e900c7706fc519f0627de6b8ef6e26f`
+  let data=useFetchMovies(url)
+  //console.log(data.results);
+  let movies=data.results
+ 
+if(!movies)return <Loading/>
 
   var settings = {
     dots: true,
@@ -33,7 +25,7 @@ export default function MainSlider() {
   return (
     <div className="overflow-hidden">
       <Slider {...settings} className="mb-4">
-        {movies.map((movie) => (
+        {movies?.map((movie) => (
           <div key={movie.id} className="slider-item position-relative">
             <img
               src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}

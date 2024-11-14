@@ -1,25 +1,13 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 import img from '../../assets/images/images.png'
+import useFetchMovies from '../Hooks/useMovies';
 export default function Reviews() {
     let { id } = useParams();
-    let [reviews, setReviews] = useState(null);
-
-    async function getReviewsForMovies() {
-        try {
-            let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=3e900c7706fc519f0627de6b8ef6e26f`);
-            setReviews(data.results);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        getReviewsForMovies();
-    }, []);
-
+    let url=  `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=3e900c7706fc519f0627de6b8ef6e26f`
+    let data=useFetchMovies(url)
+    console.log(data.results);
+    let reviews=data.results
     if (!reviews) return <Loading />;
 
     return (

@@ -6,14 +6,12 @@ import { setSearchTerm, fetchSearchResults } from '../Redux/searchSlice';
 export default function Navbar() {
   let dispatch = useDispatch();
   let navigate=useNavigate()
-
   const handleSearchChange = (e) => {
     const query = e.target.value;
     dispatch(setSearchTerm(query));
     dispatch(fetchSearchResults(query)); 
     navigate('/search-results');
   };
-
   return (
     <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
       <div className="container">
@@ -46,7 +44,7 @@ export default function Navbar() {
               aria-label="Search"
               onChange={handleSearchChange}
             />
-            <button className="btn bg-button" type="submit">Search</button>
+            <button className="btn btn-danger bg-button" type="submit">Search</button>
           </form>
         </div>
       </div>

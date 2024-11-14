@@ -1,26 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import Slider from 'react-slick'; // Import react-slick
 import { Link } from 'react-router-dom';
+import useFetchMovies from '../Hooks/useMovies';
+import Loading from '../Loading/Loading';
 
 export default function TrendingMoviesSlider() {
-  const [trendingMovies, setTrendingMovies] = useState([]);
+ 
   const apiKey = '3e900c7706fc519f0627de6b8ef6e26f';
-  
-  useEffect(() => {
-    const fetchTrendingMovies = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`
-        );
-        setTrendingMovies(response.data.results);
-      } catch (error) {
-        console.error("Error fetching trending movies:", error);
-      }
-    };
-    fetchTrendingMovies();
-  }, []);
-
+  let url=  `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`
+  let data=useFetchMovies(url)
+  console.log(data.results);
+  let trendingMovies=data.results
  
   const sliderSettings = {
     dots: false, 
@@ -47,7 +37,7 @@ export default function TrendingMoviesSlider() {
       },
     ],
   };
-
+  if(!trendingMovies)return<Loading/>
   return (
     <div className="container-fluid px-4">
       <h3 className="text-white">Trending Movies</h3>
