@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 let initialState = {
-  searchTerm: '',
   searchResults: [],
   loading: false,
   error: null,
@@ -14,10 +13,8 @@ export const fetchSearchResults = createAsyncThunk(
   async (query, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=${query}`
-      ,{headers:{
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTkwMGM3NzA2ZmM1MTlmMDYyN2RlNmI4ZWY2ZTI2ZiIsIm5iZiI6MTczMTUwMzc3Ni40NzA3NDUsInN1YiI6IjY3MzI2NDgyN2VmMmMzMWQ3OGVkYzEzOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A9qmb3x5NCuhkGgEBxsf13n0hCd40RpjcIM7UqUEvFw'
-      }});
+        `https://api.themoviedb.org/3/search/movie?api_key=3e900c7706fc519f0627de6b8ef6e26f&query=${query}`
+      );
       return response.data.results;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -29,11 +26,6 @@ export const fetchSearchResults = createAsyncThunk(
 let searchSlice = createSlice({
   name: 'search',
   initialState,
-  reducers: {
-    setSearchTerm: (state, { payload }) => {
-      state.searchTerm = payload;
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchResults.pending, (state) => {
@@ -50,5 +42,4 @@ let searchSlice = createSlice({
   },
 });
 
-export const { setSearchTerm } = searchSlice.actions;
 export const searchReducer = searchSlice.reducer;

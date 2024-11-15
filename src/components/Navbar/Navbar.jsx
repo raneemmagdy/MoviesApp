@@ -1,14 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { setSearchTerm, fetchSearchResults } from '../Redux/searchSlice';
+import {fetchSearchResults } from '../Redux/searchSlice';
 
 export default function Navbar() {
   let dispatch = useDispatch();
   let navigate=useNavigate()
   const handleSearchChange = (e) => {
     const query = e.target.value;
-    dispatch(setSearchTerm(query));
     dispatch(fetchSearchResults(query)); 
     navigate('/search-results');
   };
