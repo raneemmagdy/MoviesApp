@@ -11,6 +11,7 @@ import Credits from './components/Credits/Credits'
 import { Provider } from 'react-redux'
 import { globalStore } from './components/Redux/store'
 import SearchResults from './components/SearchResults/SearchResults'
+import NotFound from './components/NotFound/NotFound'
 
 
 
@@ -25,6 +26,9 @@ export default function App() {
       {path:'/reviews/:id',element:<Reviews/>},
       {path:'/credits/:id',element:<Credits/>},
       {path:'/search-results',element:<SearchResults/>},
+      {path:'*',element:<NotFound/>}
+
+
 
 
       
