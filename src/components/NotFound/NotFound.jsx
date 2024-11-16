@@ -16,7 +16,7 @@ export default function NotFound() {
         It seems like you've reached the end of the reel. The page you're looking for is missing. 
         Let's rewind and take you back to our home screen.
       </p>
-      <a href="/#" className="btn btn-danger btn-lg rounded-pill">
+      <a href="/MoviesApp/#" className="btn btn-danger btn-lg rounded-pill">
         Back to Home
       </a>
     </div>
